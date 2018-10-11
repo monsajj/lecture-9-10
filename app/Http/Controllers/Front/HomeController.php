@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Shop\Categories\Repositories\CategoryRepositoryInterface;
 
@@ -26,8 +27,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        //dd(DB::select('select * from categories'));
+        dd(DB::table('categories')->get());
         $cat1 = $this->categoryRepository->findCategoryById(1);
         $cat2 = $this->categoryRepository->findCategoryById(2);
+
+
 
         return view('front.index', compact('cat1', 'cat2'));
     }
