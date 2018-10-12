@@ -29,7 +29,15 @@ class HomeController extends Controller
     {
 
         //dd(DB::select('select * from categories'));
-        dd(DB::table('categories')->get());
+        $images = DB::table('images')->get();
+        foreach ($images as $image){
+            $url = asset("storage/{$image->src}");
+            echo $url."\n";
+        }
+
+        return redirect($url);
+
+        //dd($images);
         $cat1 = $this->categoryRepository->findCategoryById(1);
         $cat2 = $this->categoryRepository->findCategoryById(2);
 
