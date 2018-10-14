@@ -4,7 +4,7 @@ namespace App\Shop\Cart\Services;
 
 use App\Shop\Cart\CartSessionItem;
 use App\Shop\Cart\CartViewItem;
-use App\Shop\Products\Product;
+use App\Shop\Products\Product2;
 use App\Shop\Products\Repositories\ProductRepositoryInterface;
 use Illuminate\Support\Collection;
 use Session;
@@ -39,10 +39,10 @@ class CartService
     /**
      * Add a record to cart
      *
-     * @param Product $product
+     * @param Product2 $product
      * @param int $quantity
      */
-    public function addToCart(Product $product, int $quantity)
+    public function addToCart(Product2 $product, int $quantity)
     {
         $this->getCart();
         $productItem = new CartSessionItem($product->getId(), $quantity);
@@ -102,7 +102,7 @@ class CartService
             foreach ($this->cart as $value) {
                 /**
                  * @var CartSessionItem $value
-                 * @var Product $product
+                 * @var Product2 $product
                  */
                 $product = $this->productRepository->findOneOrFail($value->getId());
                 $cart->push(new CartViewItem($value->getId(), $product->getName(), $value->getCount(), $product->getPrice()));
@@ -122,7 +122,7 @@ class CartService
         foreach ($this->cart as $item) {
             /**
              * @var CartSessionItem $item
-             * @var Product $product
+             * @var Product2 $product
              */
             $product = $this->productRepository->findOneOrFail($item->getId());
             $sum += $product->getPrice() * $item->getCount();

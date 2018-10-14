@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Shop\ProductImage\Repositories\ProductImagesRepository;
-use App\Shop\Products\Product;
+use App\Shop\Products\Product2;
 use App\Shop\Products\Repositories\ProductRepositoryInterface;
 use App\Shop\Products\Requests\ProductRequest;
 
@@ -38,7 +38,7 @@ class ProductController extends Controller
     public function show($slug)
     {
         /**
-         * @var Product $product
+         * @var Product2 $product
          */
 
         $product = $this->productRepository->findOneByOrFail('slug', $slug);
