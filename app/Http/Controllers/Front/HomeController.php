@@ -58,8 +58,12 @@ class HomeController extends Controller
 //
 //        $productModel = $this->product->create($product);
 
-        $products = $this->product->available()->get();
+//        $products = $this->product->available()->get();
+        $products = $this->product->findOrFail(3)->id;
+
         dd($products);
+
+
 //        $category = new Category();
 //        $category->name = 'New Category';
 //        $category->slug = 'category-new';

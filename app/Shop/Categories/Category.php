@@ -13,7 +13,35 @@ class Category extends Model
         'description'
     ];
 
-//    protected $guarded = [
-//        'id'
-//    ];
+    /**
+     * @param $parentId
+     */
+    public function getCategoriesByParentId($parentId)
+    {
+        $this->where('parent_id', $parentId)->get();
+    }
+
+    /**
+     * @param $name
+     */
+    public function getCategoryByName($name)
+    {
+        $this->where('name', $name)->get();
+    }
+
+    /**
+     * @param $slug
+     */
+    public function getCategoryBySlug($slug)
+    {
+        $this->where('slug', $slug)->get();
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setNameAttribute(string $name)
+    {
+        $this->attributes['name'] = strtolower($name);
+    }
 }

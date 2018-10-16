@@ -4,48 +4,70 @@ namespace App\Http\Controllers\Front;
 
 
 use App\Http\Controllers\Controller;
-use App\Shop\ProductImage\Repositories\ProductImagesRepository;
-use App\Shop\Products\Product2;
-use App\Shop\Products\Repositories\ProductRepositoryInterface;
-use App\Shop\Products\Requests\ProductRequest;
+use App\Shop\Images\Image;
+use App\Shop\Products\Product;
+
+//use App\Shop\ProductImage\Repositories\ProductImagesRepository;
+//use App\Shop\Products\Product2;
+//use App\Shop\Products\Repositories\ProductRepositoryInterface;
+//use App\Shop\Products\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
     /**
-     * @var ProductRepositoryInterface
+     * @var Product
      */
-    private $productRepository;
+    private $product;
 
     /**
-     * @var ProductImagesRepository
+     * @var Image
      */
-    private $productImageRepository;
+    private $image;
+
+//    /**
+//     * @var ProductRepositoryInterface
+//     */
+//    private $productRepository;
+//
+//    /**
+//     * @var ProductImagesRepository
+//     */
+//    private $productImageRepository;
 
     /**
      * ProductController constructor.
-     * @param ProductRepositoryInterface $productRepository
+     * @param Product $product
+     * @param Image $image
      */
-    public function __construct(ProductRepositoryInterface $productRepository, ProductImagesRepository $imagesRepository)
+    public function __construct(Product $product, Image $image)//ProductRepositoryInterface $productRepository, ProductImagesRepository $imagesRepository
     {
-        $this->productRepository = $productRepository;
-        $this->productImageRepository = $imagesRepository;
+        $this->product = $product;
+        $this->image = $image;
+//        $this->productRepository = $productRepository;
+//        $this->productImageRepository = $imagesRepository;
     }
 
     /**
-     * @param $id
+     * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($slug)
     {
-        /**
-         * @var Product2 $product
-         */
 
-        $product = $this->productRepository->findOneByOrFail('slug', $slug);
 
-        $images = $this->productImageRepository->getImagesForProduct($product->getId());
+        $product = $this->product->productBySlug($slug)->first();
+        $product1 = $this->product->findProductBySlug($slug);
 
-        return view('front.products.product', compact('product', 'images'));
+        dd($product, $product1);
+
+
+
+
+        $image = $this->image->imageByProductId($product->id)->get();
+        $image = $image [$product->id-1];
+        $image->src = asset("storage/$image->src");
+
+        return view('front.products.product', compact('product', 'image'));
     }
 
     /**
@@ -57,7 +79,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Addd product to database
+     * Add product to database
      *
      * @param ProductRequest $request
      */

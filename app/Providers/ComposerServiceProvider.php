@@ -14,12 +14,12 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer(
-            ['layouts.front.app', 'front.categories.sidebar-category', 'layouts.front.category-nav'],
-            'App\Http\ViewComposer\CategoriesComposer');
-        View::composer(
-            'layouts.front.app',
-            'App\Http\ViewComposer\CartComposer');
+//        View::composer(
+//            ['layouts.front.app', 'front.categories.sidebar-category', 'layouts.front.category-nav'],
+//            'App\Http\ViewComposer\CategoriesComposer');
+//        View::composer(
+//            'layouts.front.app',
+//            'App\Http\ViewComposer\CartComposer');
     }
 
     /**
